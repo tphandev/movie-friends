@@ -2,6 +2,9 @@ import { BASE_URL } from "@/utilis/constant";
 import { Movie } from "@/utilis/types";
 import Image from "next/image";
 import { PlayIcon } from "@heroicons/react/24/solid";
+import tmdbLogo from "@/public/tmdb.svg";
+import ImageWithFallback from "./ImageWithFallback";
+import Link from "next/link";
 
 export default function MovieSlide({
   id,
@@ -16,8 +19,8 @@ export default function MovieSlide({
   return (
     <div className="flex flex-col space-y-2 h-[95vh] py-16 md:space-y-4 lg:pb-12 lg:mf-grid">
       <div className="absolute top-0 left-0 h-[95vh] w-screen -z-10 ">
-        <Image
-          src={`${BASE_URL}/${backdrop_path || poster_path}`}
+        <ImageWithFallback
+          src={`${BASE_URL}/original${backdrop_path || poster_path}`}
           alt={title || name || original_name!}
           fill
           className="object-cover object-center"
@@ -33,7 +36,7 @@ export default function MovieSlide({
           <div className="flex justify-start gap-4 items-center cursor-pointer">
             <Image
               className="relative"
-              src="/tmdb.svg"
+              src={tmdbLogo}
               alt="TMDB Logo"
               width={136}
               height={17}
@@ -46,9 +49,11 @@ export default function MovieSlide({
         <p className="max-w-xs text-shadow-md text-sm md:max-w-lg md:text-lg lg:max-w-2xl line-clamp-5">
           {overview}
         </p>
-        <button className="flex gap-3 bg-red-600 px-2.5 py-2.5 rounded-md items-center">
-          <PlayIcon className="h-5" />
-          WATCH NOW
+        <button className="btn-primary">
+          <Link href={`/movie/${id}`} className="flex gap-3 items-center">
+            <PlayIcon className="h-5" />
+            WATCH NOW
+          </Link>
         </button>
       </div>
     </div>

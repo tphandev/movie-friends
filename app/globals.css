@@ -9,11 +9,14 @@
   .mf-link {
     @apply cursor-pointer text-red-500 transition-colors hover:text-red-700;
   }
+  .btn-primary {
+    @apply rounded-md bg-red-500 px-2.5 py-2.5 text-center text-white transition-colors hover:bg-red-700;
+  }
 }
 
 .swiper-button-prev {
-  @apply !text-white;
+  @apply !text-red-500;
 }
 .swiper-button-next {
-  @apply !text-white;
+  @apply !text-red-500;
 }

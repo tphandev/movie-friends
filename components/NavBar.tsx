@@ -5,12 +5,11 @@ import { usePathname, useRouter } from "next/navigation";
 import MobileMenu from "./MobileMenu";
 
 export default function NavBar() {
-  const router = useRouter();
   const pathname = usePathname();
   return (
     <nav
       className={
-        "lg:mf-grid top-0 p-4 transition-all duration-300 md:px-8 lg:bg-transparent xl:px-0 fixed z-20 w-full"
+        "lg:mf-grid top-0 p-4 transition-all duration-300 md:px-8  xl:px-0 fixed z-20 w-full bg-gray-950"
       }
     >
       <div className="flex justify-between lg:col-span-12">

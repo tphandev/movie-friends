@@ -1,31 +1,29 @@
 import { Movie } from "@/utilis/types";
-import StyledSwiper from "./StyledSwiper";
-import MovieCard from "./MovieCard";
+import { CardProps } from "./Card";
+import { BASE_URL } from "@/utilis/constant";
+import Row from "./Row";
+import { format, parseISO } from "date-fns";
 
 export default function MoviesRow({ movies }: { movies: Movie[] }) {
-  return (
-    <StyledSwiper
-      navigation={{}}
-      pagination={false}
-      slidesPerView={4}
-      spaceBetween={80}
-      breakpoints={{
-        320: {
-          slidesPerView: 2,
-          spaceBetween: 20,
-        },
-        640: {
-          slidesPerView: 3,
-          spaceBetween: 40,
-        },
-        1024: {
-          slidesPerView: 4,
-          spaceBetween: 80,
-        },
-      }}
-      slides={movies.map((movie) => (
-        <MovieCard key={movie.id} {...movie} />
-      ))}
-    />
+  const cards: CardProps[] = movies.map(
+    ({
+      id,
+      poster_path,
+      title,
+      name,
+      original_name,
+      vote_average,
+      release_date,
+    }) => ({
+      href: `/movie/${id}`,
+      imageSrc: `${BASE_URL}/w300${poster_path}`,
+      title: title || name || original_name!,
+      subTitle: release_date
+        ? format(parseISO(release_date), "yyyy")
+        : undefined,
+      tmdbVote: Math.floor(vote_average * 10) / 10,
+    })
   );
+
+  return <Row cards={cards} />;
 }
