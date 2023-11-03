@@ -203,3 +203,27 @@ export async function getMovieSimilar(id: number): Promise<Movie[]> {
     throw e;
   }
 }
+
+export async function searchMovies(query: string): Promise<Movie[]> {
+  try {
+    const res = await fetch(
+      `${apiUrl}/search/movie?query=${query}&api_key=${apiKey}&language=en-US&include_adult=false`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const rawResponse = await res.json();
+    if (res.status !== 200) {
+      throw new Error(rawResponse["status_message"]);
+    }
+
+    return rawResponse.results;
+  } catch (e) {
+    throw e;
+  }
+}

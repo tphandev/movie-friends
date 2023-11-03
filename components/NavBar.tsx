@@ -1,67 +1,54 @@
-"use client";
-import clsx from "clsx";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
 import MobileMenu from "./MobileMenu";
+import ImageWithFallback from "./ImageWithFallback";
+import Menu from "./Menu";
+import { getServerSession } from "next-auth";
 
-export default function NavBar() {
-  const pathname = usePathname();
+import SearchBar from "./SearchBar";
+
+export default async function NavBar() {
+  const session = await getServerSession();
   return (
     <nav
       className={
         "lg:mf-grid top-0 p-4 transition-all duration-300 md:px-8  xl:px-0 fixed z-20 w-full bg-gray-950"
       }
     >
-      <div className="flex justify-between lg:col-span-12">
-        <div className="flex items-center justify-between gap-16">
-          <Link
-            href={{ pathname: "/" }}
-            title="Homepage"
-            aria-label="Go to homepage"
-          >
-            <p className="font-bold text-3xl text-white select-none cursor-pointer">
-              Movie<span className="text-red-500">Friends</span>
-            </p>
-          </Link>
-          <div
-            className={clsx(
-              "hidden items-center justify-between gap-12 text-white lg:flex"
-            )}
-          >
-            <Link
-              title="Popular Movies"
-              href={"/popular"}
-              className={clsx(
-                "transition-colors duration-300 hover:text-red-500 text-lg",
-                { " text-red-500": pathname === "/popular" }
+      <div className="flex justify-between items-center lg:col-span-12 lg:gap-16">
+        <Menu />
+        <div className="flex items-center justify-end gap-4 lg:flex-1">
+          <SearchBar />
+          {session ? (
+            <div className="flex gap-4 items-center">
+              {session.user?.image && (
+                <div className="relative w-8 h-8 rounded-full overflow-hidden">
+                  <ImageWithFallback
+                    src={session.user?.image}
+                    alt={session.user?.name || "User Avatar"}
+                    fill
+                    className="w-8"
+                    fallback={"https://i.pravatar.cc/300"}
+                  />
+                </div>
               )}
-            >
-              Popular Movies
-            </Link>
+              <Link
+                title="Logout"
+                className={"hidden lg:inline-block mf-link text-white"}
+                href={"/api/auth/signout"}
+              >
+                Log out
+              </Link>
+            </div>
+          ) : (
             <Link
-              title="Upcoming Movies"
-              href={"/upcoming"}
-              className={clsx(
-                "transition-colors duration-300 hover:text-red-500 text-lg",
-                { " text-red-500": pathname === "/upcoming" }
-              )}
+              title="Login"
+              className={"hidden lg:inline-block btn-primary"}
+              href={"/api/auth/signin"}
             >
-              Upcoming Movies
+              Log in
             </Link>
-          </div>
-        </div>
-
-        <div className="flex items-center justify-between gap-8">
-          <Link
-            title="Login"
-            className={
-              "hidden text-white transition-colors duration-300 hover:text-red-500 lg:inline-block text-lg"
-            }
-            href={"/"}
-          >
-            Log in
-          </Link>
-          <MobileMenu pathname={pathname} />
+          )}
+          <MobileMenu />
         </div>
       </div>
     </nav>

@@ -23,7 +23,7 @@ export default function MovieSlide({
           src={`${BASE_URL}/original${backdrop_path || poster_path}`}
           alt={title || name || original_name!}
           fill
-          className="object-cover object-center"
+          className="object-cover object-top"
         />
         <div className="absolute w-full h-[95vh] bg-gradient-to-r from-black to-transparent bottom-0 z-20" />
         <div className="absolute w-full h-14 bg-gradient-to-t from-[#141414] to-transparent bottom-0 z-20" />

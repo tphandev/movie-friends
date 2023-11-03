@@ -4,6 +4,7 @@ import Link from "next/link";
 import ImageWithFallback from "./ImageWithFallback";
 import { Url } from "next/dist/shared/lib/router/router";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import clsx from "clsx";
 
 export type CardProps = {
   href: Url;
@@ -11,6 +12,7 @@ export type CardProps = {
   title: string;
   subTitle?: string;
   tmdbVote?: number;
+  className?: string;
 };
 export default function Card({
   title,
@@ -18,9 +20,10 @@ export default function Card({
   imageSrc,
   subTitle,
   tmdbVote,
+  className,
 }: CardProps) {
   return (
-    <Link href={href} className="group">
+    <Link href={href} className={clsx("group", className)}>
       <div className="relative w-full h-72 md:h-80 lg:h-96 rounded-2xl overflow-hidden">
         <ImageWithFallback
           src={imageSrc}

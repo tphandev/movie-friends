@@ -5,15 +5,19 @@ import { Popover, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import clsx from "clsx";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
+import { usePathname } from "next/navigation";
+import { useSession } from "next-auth/react";
 
-export default function MobileMenu({ pathname }: { pathname: string | null }) {
+export default function MobileMenu() {
+  const { data: session } = useSession();
+  const pathname = usePathname();
   return (
     <Popover className="lg:hidden">
       <Popover.Button className="outline-none">
         <span className="sr-only">Open menu</span>
         <Bars3Icon
           aria-hidden="true"
-          className="text-white fill-white h-10 w-10"
+          className="text-white fill-white h-8 w-8"
         />
       </Popover.Button>
       <Transition
@@ -78,10 +82,23 @@ export default function MobileMenu({ pathname }: { pathname: string | null }) {
                   >
                     Upcoming Movies
                   </Link>
-
-                  <Link title="Login" href={""} className="text-red-500">
-                    Log In
-                  </Link>
+                  {session ? (
+                    <Link
+                      title="Logout"
+                      href={"/api/auth/signout"}
+                      className="text-red-500"
+                    >
+                      Log out
+                    </Link>
+                  ) : (
+                    <Link
+                      title="Login"
+                      href={"/api/auth/signin"}
+                      className="text-red-500"
+                    >
+                      Log In
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>
