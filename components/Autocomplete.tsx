@@ -64,7 +64,7 @@ export default function Autocomplete({
             />
             <div className="absolute inset-y-0 right-0 flex items-center pr-2">
               {isLoading ? (
-                <div className="spinner"></div>
+                <div className="spinner" />
               ) : (
                 <MagnifyingGlassIcon
                   className="h-5 w-5 text-gray-400"

@@ -8,13 +8,14 @@ A dynamic web application for movie enthusiasts.
 
 To run this project, you will need to add the following environment variables to your .env file
 
-| Variable               | Description                     |
-| :--------------------- | :------------------------------ |
-| `NEXT_PUBLIC_API_KEY`  | TMDB's API key                  |
-| `NEXTAUTH_URL`         | Canonical URL of your site      |
-| `NEXTAUTH_SECRET`      | Secret string                   |
-| `GOOGLE_CLIENT_ID`     | Google OAuth 2.0 Client ID      |
-| `GOOGLE_CLIENT_SECRET` | Google OAuth 2.0 Client secrets |
+| Variable               | Description                           |
+| :--------------------- | :------------------------------------ |
+| `NEXT_PUBLIC_API_KEY`  | TMDB's API key                        |
+| `NEXTAUTH_URL`         | Canonical URL of your site            |
+| `NEXTAUTH_SECRET`      | Secret string                         |
+| `GOOGLE_CLIENT_ID`     | Google OAuth 2.0 Client ID            |
+| `GOOGLE_CLIENT_SECRET` | Google OAuth 2.0 Client secrets       |
+| `DATABASE_URL`         | URL to connect to PostgreSQL database |
 
 ## 🏃 Run Locally
 
@@ -34,6 +35,12 @@ Install dependencies
 
 ```bash
   npm install
+```
+
+Migrate database
+
+```bash
+  npx prisma migrate dev
 ```
 
 Run the development server:

@@ -1,13 +1,9 @@
-import Link from "next/link";
 import MobileMenu from "./MobileMenu";
-import ImageWithFallback from "./ImageWithFallback";
 import Menu from "./Menu";
-import { getServerSession } from "next-auth";
-
 import SearchBar from "./SearchBar";
+import Avatar from "./Avatar";
 
-export default async function NavBar() {
-  const session = await getServerSession();
+export default function NavBar() {
   return (
     <nav
       className={
@@ -18,36 +14,7 @@ export default async function NavBar() {
         <Menu />
         <div className="flex items-center justify-end gap-4 lg:flex-1">
           <SearchBar />
-          {session ? (
-            <div className="flex gap-4 items-center">
-              {session.user?.image && (
-                <div className="relative w-8 h-8 rounded-full overflow-hidden">
-                  <ImageWithFallback
-                    src={session.user?.image}
-                    alt={session.user?.name || "User Avatar"}
-                    fill
-                    className="w-8"
-                    fallback={"https://i.pravatar.cc/300"}
-                  />
-                </div>
-              )}
-              <Link
-                title="Logout"
-                className={"hidden lg:inline-block mf-link text-white"}
-                href={"/api/auth/signout"}
-              >
-                Log out
-              </Link>
-            </div>
-          ) : (
-            <Link
-              title="Login"
-              className={"hidden lg:inline-block btn-primary"}
-              href={"/api/auth/signin"}
-            >
-              Log in
-            </Link>
-          )}
+          <Avatar />
           <MobileMenu />
         </div>
       </div>

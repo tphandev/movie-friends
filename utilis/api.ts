@@ -1,5 +1,6 @@
 import { formatISO, startOfToday } from "date-fns";
-import { Cast, Details, Movie, MovieImages, MovieVideo } from "./types";
+import { Cast, Details, Movie, MovieImages, MovieVideo, User } from "./types";
+import { SignupFormData } from "@/components/SignupForm";
 
 const apiKey = process.env.NEXT_PUBLIC_API_KEY;
 const apiUrl = "https://api.themoviedb.org/3";
@@ -223,6 +224,29 @@ export async function searchMovies(query: string): Promise<Movie[]> {
     }
 
     return rawResponse.results;
+  } catch (e) {
+    throw e;
+  }
+}
+
+export async function createUser(user: SignupFormData): Promise<User> {
+  try {
+    const res = await fetch(`/api/user`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    });
+
+    const rawResponse = await res.json();
+
+    if (!res.ok) {
+      throw new Error(rawResponse["message"]);
+    }
+
+    return rawResponse.user;
   } catch (e) {
     throw e;
   }

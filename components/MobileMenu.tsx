@@ -7,6 +7,7 @@ import clsx from "clsx";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
+import LogoutButton from "./LogoutButton";
 
 export default function MobileMenu() {
   const { data: session } = useSession();
@@ -83,18 +84,13 @@ export default function MobileMenu() {
                     Upcoming Movies
                   </Link>
                   {session ? (
-                    <Link
-                      title="Logout"
-                      href={"/api/auth/signout"}
-                      className="text-red-500"
-                    >
-                      Log out
-                    </Link>
+                    <LogoutButton className="w-fit" />
                   ) : (
                     <Link
                       title="Login"
                       href={"/api/auth/signin"}
                       className="text-red-500"
+                      onClick={() => close()}
                     >
                       Log In
                     </Link>

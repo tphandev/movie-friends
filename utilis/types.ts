@@ -57,7 +57,7 @@ export type MovieImages = {
   posters: MovieImage[];
 };
 
-export interface MovieVideo {
+export type MovieVideo = {
   id: string;
   iso_639_1: string;
   iso_3166_1: string;
@@ -68,9 +68,9 @@ export interface MovieVideo {
   site: string;
   size: string;
   type: string;
-}
+};
 
-export interface Cast {
+export type Cast = {
   adult: boolean;
   cast_id: number;
   character: string;
@@ -83,4 +83,12 @@ export interface Cast {
   original_name: string;
   popularity: string;
   profile_path: string;
-}
+};
+
+export type User = {
+  id: number;
+  email: string;
+  name?: string;
+  createAt: string;
+  updateAt: string;
+};
