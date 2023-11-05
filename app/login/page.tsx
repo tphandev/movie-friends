@@ -12,10 +12,12 @@ export default async function Page() {
   return (
     <div className="min-h-screen mt-32 px-4">
       <LoginForm
-        providers={Object.values(providers).map(({ id, name }) => ({
-          id,
-          name,
-        }))}
+        providers={Object.values(providers)
+          .filter(({ type }) => type === "oauth")
+          .map(({ id, name }) => ({
+            id,
+            name,
+          }))}
       />
     </div>
   );
