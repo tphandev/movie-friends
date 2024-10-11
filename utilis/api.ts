@@ -4,6 +4,7 @@ import { SignupFormData } from "@/components/SignupForm";
 
 const apiKey = process.env.NEXT_PUBLIC_API_KEY;
 const apiUrl = "https://api.themoviedb.org/3";
+const revalidate = 24 * 3600;
 
 export async function getTrendingMovies(): Promise<Movie[]> {
   try {
@@ -15,6 +16,7 @@ export async function getTrendingMovies(): Promise<Movie[]> {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
+        next: { revalidate },
       }
     );
 
@@ -41,6 +43,7 @@ export async function getPopularMovies(page?: number): Promise<Movie[]> {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
+        next: { revalidate },
       }
     );
 
@@ -71,6 +74,7 @@ export async function getUpcomingMovies(page?: number): Promise<Movie[]> {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
+        next: { revalidate },
       }
     );
 
